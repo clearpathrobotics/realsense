@@ -392,7 +392,7 @@ void BaseRealSenseNode::setupStreams()
                 publishFrame(frame, t);
             }
 
-            if(_pointcloud && is_depth_frame_arrived && //is_color_frame_arrived &&
+            if(_pointcloud && is_depth_frame_arrived && (!_enable[COLOR] || is_color_frame_arrived) &&
                (0 != _pointcloud_publisher.getNumSubscribers()))
             {
                 ROS_DEBUG("publishPCTopic(...)");
@@ -880,6 +880,7 @@ void BaseRealSenseNode::publishPCTopic(const ros::Time& t)
             }
             else
             {
+                // Use the same blue as out of bounds for when no color image is available
                 *iter_r = static_cast<uint8_t>(96);
                 *iter_g = static_cast<uint8_t>(157);
                 *iter_b = static_cast<uint8_t>(198);
@@ -960,7 +961,6 @@ void BaseRealSenseNode::publishFrame(rs2::frame f, const ros::Time& t)
     ++(_seq[stream]);
     auto& info_publisher = _info_publisher[stream];
     auto& image_publisher = _image_publishers[stream];
-
     if(0 != info_publisher.getNumSubscribers() ||
        0 != image_publisher.getNumSubscribers())
     {

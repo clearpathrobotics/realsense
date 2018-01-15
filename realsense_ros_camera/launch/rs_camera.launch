@@ -34,10 +34,9 @@
   <arg name="enable_pointcloud"   default="false"/>
   <arg name="enable_sync"         default="false"/>
 
-  <arg name="base_frame_id"       default="realsense"/>
-  <arg name="group_namespace"       default="realsense"/>
+  <arg name="namespace"       default="realsense"/>
 
-  <group ns="$(arg group_namespace)">
+  <group ns="$(arg namespace)">
     <include file="$(find realsense_ros_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"                value="$(arg serial_no)"/>
       <arg name="json_file_path"           value="$(arg json_file_path)"/>
@@ -74,7 +73,7 @@
       <arg name="accel_fps"                value="$(arg accel_fps)"/>
       <arg name="enable_imu"               value="$(arg enable_imu)"/>
 
-      <arg name="base_frame_id"            value="$(arg base_frame_id)"/>
+      <arg name="camera_name"              value="$(arg namespace)"/>
     </include>
   </group>
 </launch>
