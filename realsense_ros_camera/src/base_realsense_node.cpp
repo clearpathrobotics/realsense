@@ -977,7 +977,6 @@ void BaseRealSenseNode::publishFrame(rs2::frame f, const ros::Time& t)
 
         sensor_msgs::ImagePtr img;
         img = cv_bridge::CvImage(std_msgs::Header(), _encoding[stream], image).toImageMsg();
-
         img->width = width;
         img->height = height;
         img->is_bigendian = false;
@@ -991,7 +990,6 @@ void BaseRealSenseNode::publishFrame(rs2::frame f, const ros::Time& t)
         cam_info.header.seq = _seq[stream];
         info_publisher.publish(cam_info);
         image_publisher.publish(img);
-
         ROS_DEBUG("%s stream published", rs2_stream_to_string(f.get_profile().stream_type()));
     }
 }
