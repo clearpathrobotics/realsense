@@ -42,6 +42,8 @@
   <arg name="enable_pointcloud"   default="false"/>
   <arg name="enable_sync"         default="false"/>
 
+  <arg name="camera_name"       default="camera"/>
+
   <node pkg="nodelet" type="nodelet" name="$(arg manager)" args="manager" output="screen"/>
   <node pkg="nodelet" type="nodelet" name="realsense_ros_camera" args="load realsense_ros_camera/RealSenseNodeFactory $(arg manager)">
     <param name="serial_no"                type="str"  value="$(arg serial_no)"/>
@@ -79,13 +81,23 @@
     <param name="accel_fps"                type="int"  value="$(arg accel_fps)"/>
     <param name="enable_imu"               type="bool" value="$(arg enable_imu)"/>
 
-    <param name="depth_optical_frame_id"   type="str"  value="camera_depth_optical_frame"/>
-    <param name="infra1_optical_frame_id"  type="str"  value="camera_infra1_optical_frame"/>
-    <param name="infra2_optical_frame_id"  type="str"  value="camera_infra2_optical_frame"/>
-    <param name="color_optical_frame_id"   type="str"  value="camera_rgb_optical_frame"/>
-    <param name="fisheye_optical_frame_id" type="str"  value="camera_fisheye_optical_frame"/>
-    <param name="accel_optical_frame_id"   type="str"  value="camera_accel_optical_frame"/>
-    <param name="gyro_optical_frame_id"    type="str"  value="camera_gyro_optical_frame"/>
+    <param name="depth_frame_id"           type="str"  value="$(arg camera_name)_depth_frame"/>
+    <param name="infra1_frame_id"          type="str"  value="$(arg camera_name)_infra1_frame"/>
+    <param name="infra2_frame_id"          type="str"  value="$(arg camera_name)_infra2_frame"/>
+    <param name="color_frame_id"           type="str"  value="$(arg camera_name)_rgb_frame"/>
+    <param name="fisheye_frame_id"         type="str"  value="$(arg camera_name)_fisheye_frame"/>
+    <param name="accel_frame_id"           type="str"  value="$(arg camera_name)_accel_frame"/>
+    <param name="gyro_frame_id"            type="str"  value="$(arg camera_name)_gyro_frame"/>
+
+    <param name="depth_optical_frame_id"   type="str"  value="$(arg camera_name)_depth_optical_frame"/>
+    <param name="infra1_optical_frame_id"  type="str"  value="$(arg camera_name)_infra1_optical_frame"/>
+    <param name="infra2_optical_frame_id"  type="str"  value="$(arg camera_name)_infra2_optical_frame"/>
+    <param name="color_optical_frame_id"   type="str"  value="$(arg camera_name)_rgb_optical_frame"/>
+    <param name="fisheye_optical_frame_id" type="str"  value="$(arg camera_name)_fisheye_optical_frame"/>
+    <param name="accel_optical_frame_id"   type="str"  value="$(arg camera_name)_accel_optical_frame"/>
+    <param name="gyro_optical_frame_id"    type="str"  value="$(arg camera_name)_gyro_optical_frame"/>
+
+    <param name="base_frame_id"            type="str"  value="$(arg camera_name)_link"/>
   </node>
 </launch>
 
